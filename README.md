@@ -1,10 +1,12 @@
 # SQL_practice
 
+## SELECT
 film tablosunda bulunan title ve description sütunlarındaki verileri sıralayınız.
 ```
 SELECT title, description from film;
 ```
 
+## WHERE - AND - NOT
 film tablosunda bulunan tüm sütunlardaki verileri film uzunluğu (length) 60 dan büyük VE 75 ten küçük olma koşullarıyla sıralayınız.
 ```
 SELECT * FROM film WHERE length > 60 AND length < 75;
@@ -25,6 +27,7 @@ film tablosundaki uzunluğu(length) 50 ten büyük OLMAYIP aynı zamanda rental_
 SELECT * FROM film WHERE NOT length > 50 AND NOT (rental_rate = 2.99 OR rental_rate = 4.99);
 ```
 
+## BETWEEN - IN
 film tablosunda bulunan tüm sütunlardaki verileri replacement cost değeri 12.99 dan büyük eşit ve 16.99 küçük olma koşuluyla sıralayınız ( BETWEEN - AND yapısını kullanınız.)
 ```
 select * from film where replacement_cost between 12.99 and 16.99;
@@ -40,6 +43,7 @@ film tablosunda bulunan tüm sütunlardaki verileri rental_rate 0.99, 2.99, 4.99
 select * from film where (rental_rate in (0.99,2.99,4.99)) and (replacement_cost in (12.99,15.99,28.99));
 ```
 
+## LIKE - ILIKE
 country tablosunda bulunan country sütunundaki ülke isimlerinden 'A' karakteri ile başlayıp 'a' karakteri ile sonlananları sıralayınız.
 ```
 select country from country where country like 'A%a';
@@ -60,6 +64,7 @@ film tablosunda bulunan tüm sütunlardaki verilerden title 'C' karakteri ile ba
 select * from film where (title like 'C%') and (length>90) and (rental_rate=2.99);
 ```
 
+## DISTINCT - COUNT
 film tablosunda bulunan replacement_cost sütununda bulunan birbirinden farklı değerleri sıralayınız.
 ```
 select distinct replacement_cost from film;
@@ -83,4 +88,20 @@ select count (*) from country where country like '_____';
 city tablosundaki şehir isimlerinin kaç tanesi 'R' veya r karakteri ile biter?
 ```
 select count(*) from city where city ilike '%r';
+```
+
+## ORDER BY - LIMIT - OFFSET
+film tablosunda bulunan ve film ismi (title) 'n' karakteri ile biten en uzun (length) 5 filmi sıralayınız.
+```
+select title from film where title like '%n' order by length limit 5;
+```
+
+film tablosunda bulunan ve film ismi (title) 'n' karakteri ile biten en kısa (length) ikinci(6,7,8,9,10) 5 filmi sıralayınız.
+```
+select title from film where title like '%n' order by length desc offset 5 limit 5;
+```
+
+customer tablosunda bulunan last_name sütununa göre azalan yapılan sıralamada store_id 1 olmak koşuluyla ilk 4 veriyi sıralayınız.
+```
+select * from customer where store_id=1 order by last_name desc limit 4; 
 ```
