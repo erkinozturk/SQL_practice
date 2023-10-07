@@ -72,7 +72,7 @@ select distinct replacement_cost from film;
 
 film tablosunda bulunan replacement_cost sütununda birbirinden farklı kaç tane veri vardır?
 ```
-select count (replacement_cost) from film;
+select count (distinct replacement_cost) from film;
 ```
 
 film tablosunda bulunan film isimlerinde (title) kaç tanesini T karakteri ile başlar ve aynı zamanda rating 'G' ye eşittir?
@@ -104,4 +104,26 @@ select title from film where title like '%n' order by length desc offset 5 limit
 customer tablosunda bulunan last_name sütununa göre azalan yapılan sıralamada store_id 1 olmak koşuluyla ilk 4 veriyi sıralayınız.
 ```
 select * from customer where store_id=1 order by last_name desc limit 4; 
+```
+
+## Aggregate Function - MIN, MAX, SUM, AVG
+
+film tablosunda bulunan rental_rate sütunundaki değerlerin ortalaması nedir?
+```
+select avg(rental_rate) from film;
+```
+
+film tablosunda bulunan filmlerden kaç tanesi 'C' karakteri ile başlar?
+```
+select count(title) from film where title like 'C%';
+```
+
+film tablosunda bulunan filmlerden rental_rate değeri 0.99 a eşit olan en uzun (length) film kaç dakikadır?
+```
+select max(length) from film where rental_rate=0.99;
+```
+
+film tablosunda bulunan filmlerin uzunluğu 150 dakikadan büyük olanlarına ait kaç farklı replacement_cost değeri vardır?
+```
+select count(distinct replacement_cost) from film where length>150;
 ```
