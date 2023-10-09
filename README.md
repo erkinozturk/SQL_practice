@@ -149,3 +149,37 @@ city tablosunda bulunan şehir verilerini country_id sütununa göre gruplandır
 ```
 select country_id, count(city) from city group by country_id order by count(city) desc limit 1;
 ```
+
+## CREATE - UPDATE - DELETE
+
+test veritabanınızda employee isimli sütun bilgileri id(INTEGER), name VARCHAR(50), birthday DATE, email VARCHAR(100) olan bir tablo oluşturalım.
+```
+create table employee (id serial primary key, name varchar(50), birthday date, email varchar(100));
+```
+
+Oluşturduğumuz employee tablosuna 'Mockaroo' servisini kullanarak 50 adet veri ekleyelim.
+```
+https://www.mockaroo.com/
+```
+
+Sütunların her birine göre diğer sütunları güncelleyecek 3 adet UPDATE işlemi yapalım.
+```
+update employee set name = 'Updated' where email like 'w%' returning *;
+```
+```
+update employee set birthday = '2000-01-01' where email is null returning *;
+```
+```
+update employee set email = 'Default' where birthday ='2000-01-01' returning *;
+```
+
+Sütunların her birine göre ilgili satırı silecek 3 adet DELETE işlemi yapalım.
+```
+delete from employee where birthday < '1920-01-01' returning *;
+```
+```
+delete from employee where birthday is null returning *;
+```
+```
+delete from employee where name ilike 'je%' returning *;
+```
