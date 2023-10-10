@@ -1,12 +1,16 @@
 # SQL_practice
 
+
 ## SELECT
+
 film tablosunda bulunan title ve description sütunlarındaki verileri sıralayınız.
 ```
 SELECT title, description from film;
 ```
 
+
 ## WHERE - AND - NOT
+
 film tablosunda bulunan tüm sütunlardaki verileri film uzunluğu (length) 60 dan büyük VE 75 ten küçük olma koşullarıyla sıralayınız.
 ```
 SELECT * FROM film WHERE length > 60 AND length < 75;
@@ -27,7 +31,9 @@ film tablosundaki uzunluğu(length) 50 ten büyük OLMAYIP aynı zamanda rental_
 SELECT * FROM film WHERE NOT length > 50 AND NOT (rental_rate = 2.99 OR rental_rate = 4.99);
 ```
 
+
 ## BETWEEN - IN
+
 film tablosunda bulunan tüm sütunlardaki verileri replacement cost değeri 12.99 dan büyük eşit ve 16.99 küçük olma koşuluyla sıralayınız ( BETWEEN - AND yapısını kullanınız.)
 ```
 select * from film where replacement_cost between 12.99 and 16.99;
@@ -43,7 +49,9 @@ film tablosunda bulunan tüm sütunlardaki verileri rental_rate 0.99, 2.99, 4.99
 select * from film where (rental_rate in (0.99,2.99,4.99)) and (replacement_cost in (12.99,15.99,28.99));
 ```
 
+
 ## LIKE - ILIKE
+
 country tablosunda bulunan country sütunundaki ülke isimlerinden 'A' karakteri ile başlayıp 'a' karakteri ile sonlananları sıralayınız.
 ```
 select country from country where country like 'A%a';
@@ -64,7 +72,9 @@ film tablosunda bulunan tüm sütunlardaki verilerden title 'C' karakteri ile ba
 select * from film where (title like 'C%') and (length>90) and (rental_rate=2.99);
 ```
 
+
 ## DISTINCT - COUNT
+
 film tablosunda bulunan replacement_cost sütununda bulunan birbirinden farklı değerleri sıralayınız.
 ```
 select distinct replacement_cost from film;
@@ -90,7 +100,9 @@ city tablosundaki şehir isimlerinin kaç tanesi 'R' veya r karakteri ile biter?
 select count(*) from city where city ilike '%r';
 ```
 
+
 ## ORDER BY - LIMIT - OFFSET
+
 film tablosunda bulunan ve film ismi (title) 'n' karakteri ile biten en uzun (length) 5 filmi sıralayınız.
 ```
 select title from film where title like '%n' order by length limit 5;
@@ -105,6 +117,7 @@ customer tablosunda bulunan last_name sütununa göre azalan yapılan sıralamad
 ```
 select * from customer where store_id=1 order by last_name desc limit 4; 
 ```
+
 
 ## Aggregate Function - MIN, MAX, SUM, AVG
 
@@ -128,6 +141,7 @@ film tablosunda bulunan filmlerin uzunluğu 150 dakikadan büyük olanlarına ai
 select count(distinct replacement_cost) from film where length>150;
 ```
 
+
 ## GROUP BY - HAVING
 
 film tablosunda bulunan filmleri rating değerlerine göre gruplayınız.
@@ -149,6 +163,7 @@ city tablosunda bulunan şehir verilerini country_id sütununa göre gruplandır
 ```
 select country_id, count(city) from city group by country_id order by count(city) desc limit 1;
 ```
+
 
 ## CREATE - UPDATE - DELETE
 
@@ -182,4 +197,22 @@ delete from employee where birthday is null returning *;
 ```
 ```
 delete from employee where name ilike 'je%' returning *;
+```
+
+
+## INNER JOIN
+
+city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+```
+select city.city, country.country from city inner join country on city.city_id = country.country_id;
+```
+
+customer tablosu ile payment tablosunda bulunan payment_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+```
+select payment.payment_id, customer.first_name, customer.last_name from customer inner join payment on payment.customer_id = customer.customer_id;
+```
+
+customer tablosu ile rental tablosunda bulunan rental_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+```
+select rental.rental_id, customer.first_name, customer.last_name from customer inner join rental on customer.customer_id = rental.customer_id;
 ```
